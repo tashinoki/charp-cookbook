@@ -2,12 +2,12 @@
 
 internal class BadDeployProcess
 {
-    private readonly StreamWriter _report = new("");
+    private readonly StreamWriter _report = new($"{Directory.GetCurrentDirectory()}\\BadDeployProcess.txt");
 
     public bool CheckStatus()
     {
-        _report.WriteLine("Hello World./");
-
+        _report.WriteLine("Hello World.");
+        Console.WriteLine("Wrote text.");
         return true;
     }
 }
@@ -16,7 +16,7 @@ internal class DeployProcess: IDisposable
 {
     private bool _disposed;
 
-    private readonly StreamWriter _report = new("");
+    private readonly StreamWriter _report = new($"{Directory.GetCurrentDirectory()}\\DeployProcess.txt");
 
     public bool CheckStatus()
     {

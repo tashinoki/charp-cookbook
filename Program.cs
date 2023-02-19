@@ -1,2 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+
+//// Manage Object lifetime.
+
+using charp_cookbook.Application;
+
+foreach (var _ in Enumerable.Range(1, 10))
+{
+    var badDeploymentProcess = new BadDeployProcess();
+    badDeploymentProcess.CheckStatus();
+}
