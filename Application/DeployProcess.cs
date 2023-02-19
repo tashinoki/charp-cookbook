@@ -20,7 +20,8 @@ internal class DeployProcess: IDisposable
 
     public bool CheckStatus()
     {
-        _report.WriteLine("Hello World./");
+        _report.WriteLine("Hello World.");
+        Console.WriteLine("Wrote text.");
 
         return true;
     }
