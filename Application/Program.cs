@@ -1,7 +1,16 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace charp_cookbook.Application;
 
 public class Program
 {
+    readonly IDeploymentService _deploymentService;
+
+    public Program(IDeploymentService deploymentService)
+    {
+        _deploymentService = deploymentService;
+    }
+
     public static void Main()
     {
         //// Manage Object lifetime.
@@ -16,5 +25,24 @@ public class Program
             using var badDeploymentProcess = new DeployProcess();
             badDeploymentProcess.CheckStatus();
         }
+
+
+        //// Tight coupling
+        var services = new ServiceCollection();
+
+        services.AddTransient<DeploymentArtifacts>();
+        services.AddTransient<DeploymentRepository>();
+        services.AddTransient<IDeploymentService, DeploymentService>();
+
+        var serviceProvider = services.BuildServiceProvider();
+        var deployMentService = serviceProvider.GetRequiredService<IDeploymentService>();
+        
+        var program = new Program(deployMentService);
+        program.StartValidation();
+    }
+
+    public void StartValidation()
+    {
+        _deploymentService.PerformValidation();
     }
 }
