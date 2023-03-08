@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace charp_cookbook.Application;
 
 public class Program
@@ -45,13 +43,22 @@ public class Program
 
 
         //// ThirdParty Service
-        var services = new ServiceCollection();
-        services.AddSingleton<IThirdPartyServiceFactory, ThirdPartyServiceFactory>();
+        //var services = new ServiceCollection();
+        //services.AddSingleton<IThirdPartyServiceFactory, ThirdPartyServiceFactory>();
 
-        var serviceProvider = services.BuildServiceProvider();
-        var factory = serviceProvider.GetRequiredService<IThirdPartyServiceFactory>();
-        var p = new Program(null, factory);
-        p.Validate();
+        //var serviceProvider = services.BuildServiceProvider();
+        //var factory = serviceProvider.GetRequiredService<IThirdPartyServiceFactory>();
+        //var p = new Program(null, factory);
+        //p.Validate();
+
+
+        //// Factory method
+        var p = new Program(null, null);
+        p.Run(new PluginManagementBase[]
+        {
+            new PluginManager1(),
+            new PluginManager2()
+        });
     }
 
     public void StartValidation()
@@ -62,5 +69,13 @@ public class Program
     public void Validate()
     {
         _thirdPartyServiceFactory.Create().Validate();
+    }
+
+    internal void Run(PluginManagementBase[] bases)
+    {
+        foreach (var plugin in bases)
+        {
+            plugin.Validate();
+        }
     }
 }

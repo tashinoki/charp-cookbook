@@ -2,7 +2,7 @@
 
 // サードパーティライブラリで提供されている Service class
 // interface を実装しておらず、もし生成方法が複雑だとアプリケーションコードがひどい事になる
-internal class ThirdPartyService
+public class ThirdPartyService
 {
     public void Validate()
     {

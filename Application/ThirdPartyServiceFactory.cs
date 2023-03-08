@@ -1,6 +1,6 @@
 ﻿namespace charp_cookbook.Application;
 
-internal interface IThirdPartyServiceFactory
+public interface IThirdPartyServiceFactory
 {
     ThirdPartyService Create();
 }
