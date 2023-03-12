@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace charp_cookbook.Application;
 
 public class Program
@@ -59,6 +61,17 @@ public class Program
             new PluginManager1(),
             new PluginManager2()
         });
+
+        //// Tuple
+        var services = new ServiceCollection();
+        services.AddTransient<DeploymentArtifacts>();
+        services.AddTransient<DeploymentRepository>();
+        services.AddTransient<IDeploymentService, DeploymentService>();
+
+        var serviceProvider = services.BuildServiceProvider();
+        var deployMentService = serviceProvider.GetRequiredService<IDeploymentService>();
+        (var deployment, var artifacts) = deployMentService.Validate();
+        Console.WriteLine($"Deployment: {deployment}, Artifacts: {artifacts}");
     }
 
     public void StartValidation()

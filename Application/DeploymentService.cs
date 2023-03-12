@@ -3,6 +3,7 @@ namespace charp_cookbook.Application;
 public interface IDeploymentService
 {
     void PerformValidation();
+    (bool deployment, bool artifacts) Validate();
 }
 
 public class DeploymentService: IDeploymentService
@@ -22,5 +23,17 @@ public class DeploymentService: IDeploymentService
     {
         _deploymentArtifacts.Validate();
         _deploymentRepository.SaveStatus("status");
+    }
+
+    public (bool deployment, bool artifacts) Validate()
+    {
+        var status = new ValidationStatus
+        {
+            Deployment = false,
+            Artifacts = true
+        };
+
+        (var deployment, var artifacts) = status;
+        return (deployment, artifacts);
     }
 }
