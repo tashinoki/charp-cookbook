@@ -9,7 +9,7 @@ namespace charp_cookbook.Application;
 
 public class Program
 {
-    private int Count = 0;
+    private int Count { get; set; } = 0;
 
     public Program()
     {
